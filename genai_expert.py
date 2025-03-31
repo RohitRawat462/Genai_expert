@@ -10,8 +10,15 @@ def get_groq_response(user_message, chat_history):
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
     data = {
         "model": "llama-3.3-70b-versatile",  # Update this with the correct model name
-        "messages": chat_history + [{"role": "user", "content": user_message}],
-        "temperature": 0.7
+        "messages":[{"role": "system", "content": """You are a Generative AI Expert with deep knowledge in Artificial Intelligence, Machine Learning, and Generative AI. 
+  You provide expert-level answers on topics such as NLP, transformers, diffusion models, AI trends, model fine-tuning, and ethical AI. 
+  If a user asks about anything outside these topics, politely refuse to answer and guide them back to AI-related discussions."""},]
+    + chat_history + [{"role": "user", "content": user_message}], 
+  "temperature": 0.7,  # Controls randomness (lower = more deterministic)
+  "top_p": 0.9,  # Nucleus sampling (alternative to temperature)
+  "max_tokens": 100, # Limits response length
+  "frequency_penalty": 0.0,  # Reduces repetition (higher = less repetition)
+  "presence_penalty": 0.6,  # Encourages new topics in response
     }
     
     response = requests.post(GROQ_API_URL, headers=headers, data=json.dumps(data))
@@ -20,8 +27,7 @@ def get_groq_response(user_message, chat_history):
     else:
         return f"Error: {response.status_code}, {response.text}"  # More detailed error
 
-    print(response.status_code)
-    print(response.text)
+
 
 # Streamlit UI
 st.set_page_config(page_title="GenAI Expert Chatbot", page_icon="🤖", layout="wide")
