@@ -16,7 +16,7 @@ def get_groq_response(user_message, chat_history):
     + chat_history + [{"role": "user", "content": user_message}], 
   "temperature": 0.7,  # Controls randomness (lower = more deterministic)
   "top_p": 0.9,  # Nucleus sampling (alternative to temperature)
-  "max_tokens": 100, # Limits response length
+  "max_tokens": 512, # Limits response length
   "frequency_penalty": 0.0,  # Reduces repetition (higher = less repetition)
   "presence_penalty": 0.6,  # Encourages new topics in response
     }
