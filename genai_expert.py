@@ -28,11 +28,19 @@ def get_groq_response(user_message, chat_history):
         return f"Error: {response.status_code}, {response.text}"  # More detailed error
 
 
+# Streamlit UI Config
+st.set_page_config(page_title="GenAI Expert", page_icon="🤖", layout="wide")
 
-# Streamlit UI
-st.set_page_config(page_title="GenAI Expert Chatbot", page_icon="🤖", layout="wide")
-st.title("🤖 Generative AI Expert Chatbot")
-st.write("Ask anything about AI, ML, Generative AI, and the latest AI trends!")
+# Centered Header
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <h1>🤖 Generative AI Expert</h1>
+        <p>Ask anything about AI, ML, Generative AI, and the latest AI trends!</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Session State for chat history
 if "messages" not in st.session_state:
@@ -51,7 +59,7 @@ if user_input:
     # Append user message
     st.session_state["messages"].append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
-    
+
     # Get AI response
     response = get_groq_response(user_input, st.session_state["messages"])
     st.session_state["messages"].append({"role": "assistant", "content": response})
