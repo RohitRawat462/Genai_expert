@@ -65,12 +65,22 @@ if user_input:
     st.session_state["messages"].append({"role": "assistant", "content": response})
     st.chat_message("assistant").write(response)
 
-    # Hide "Hosted with Streamlit", GitHub link, and Fork option
+# Hide "Hosted with Streamlit", GitHub link, and Fork button
 st.markdown("""
     <style>
-        footer {visibility: hidden !important;}
-        header {visibility: hidden !important;}
-        .stDeployButton {visibility: hidden !important;} /* Hides Fork Button */
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stDeployButton {display: none !important;}  /* Hides Fork Button */
+        
+        /* Additional CSS to fully remove footer text */
+        .viewerBadge_link__qRIco {
+            display: none !important;
+        }
+        
+        /* For older versions of Streamlit */
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        footer:after {content: ""; display: none;}
     </style>
     """, unsafe_allow_html=True)
 
