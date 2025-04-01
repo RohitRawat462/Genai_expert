@@ -28,17 +28,6 @@ def get_groq_response(user_message, chat_history):
         return f"Error: {response.status_code}, {response.text}"  # More detailed error
 
 
-
-# Hide "Hosted with Streamlit", GitHub link, and Fork option
-st.markdown("""
-    <style>
-        footer {visibility: hidden !important;}
-        header {visibility: hidden !important;}
-        .stDeployButton {visibility: hidden !important;} /* Hides Fork Button */
-    </style>
-    """, unsafe_allow_html=True)
-
-    
 # Streamlit UI Config
 st.set_page_config(page_title="GenAI Expert", page_icon="🤖", layout="wide")
 
@@ -75,3 +64,14 @@ if user_input:
     response = get_groq_response(user_input, st.session_state["messages"])
     st.session_state["messages"].append({"role": "assistant", "content": response})
     st.chat_message("assistant").write(response)
+
+    # Hide "Hosted with Streamlit", GitHub link, and Fork option
+st.markdown("""
+    <style>
+        footer {visibility: hidden !important;}
+        header {visibility: hidden !important;}
+        .stDeployButton {visibility: hidden !important;} /* Hides Fork Button */
+    </style>
+    """, unsafe_allow_html=True)
+
+    
