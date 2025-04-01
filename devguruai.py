@@ -40,10 +40,18 @@ Inshort You are DevGuru AI, an advanced AI mentor specializing in software devel
         return f"Error: {response.status_code}, {response.text}"  # More detailed error
 
 
-
-
 # Streamlit UI Config
 st.set_page_config(page_title="DevGuru AI", page_icon="🤖", layout="wide")
+
+# Fix Header Spacing (Top Padding)
+st.markdown("""
+    <style>
+        /* Remove default padding from Streamlit layout */
+        .block-container { 
+            padding-top: 0px !important;  /* Just 10px space */
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Custom CSS for WhatsApp-style chat UI
 st.markdown("""
